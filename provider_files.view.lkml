@@ -206,14 +206,10 @@ view: provider_files {
     sql: ${TABLE}."provider_id" ;;
   }
 
-  measure: count_of_providers {
-    type: count
-    sql: ${provider_id} ;;
-  }
-
   dimension: state {
     type: string
     sql: ${TABLE}."state" ;;
+    map_layer_name: us_states
   }
 
   dimension: status {
@@ -248,24 +244,46 @@ view: provider_files {
   dimension: zip_code {
     type: zipcode
     sql: ${TABLE}."zip_code" ;;
+    map_layer_name: us_zipcode_tabulation_areas
   }
 
-  measure: count {
+  ######### Measures#########
+
+  measure: count_original_provider_file_id {
     type: count
     drill_fields: [detail*]
   }
 
-  # ----- Sets of fields for drilling ------
+  measure: count_of_providers {
+    type: count
+    sql: ${provider_id} ;;
+    drill_fields: [detail*]
+  }
+
+  measure: count_of_facilities {
+    type: count
+    sql: ${facility_id} ;;
+    drill_fields: [detail*]
+  }
+
+  measure: count_of_enterprises {
+    type: count
+    sql: ${enterprise_id} ;;
+    drill_fields: [detail*]
+  }
+
+  ######### Sets of fields for drilling #########
+
   set: detail {
     fields: [
       original_provider_file_id,
-      providers.id,
-      providers.first_name,
-      providers.last_name,
-      providers.download_file_name,
-      enterprises.id,
-      enterprises.name,
-      enterprises.logo_file_name
+      enterprise_id,
+      facility_id,
+      facilities.name,
+      facility_status,
+      city,
+      state,
+      zip_code
     ]
   }
 }
