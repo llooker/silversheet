@@ -5,10 +5,10 @@ include: "*.view.lkml"                       # include all views in this project
 
 explore: provider_files {
   label: "Provider Files, Facilities, Providers & Enterprises"
-  access_filter: {
-    field: facilities.name
-    user_attribute: facilities_name
-  }
+  # access_filter: {
+  #   field: facilities.name
+  #   user_attribute: facilities_name
+  # }
 
   join: facilities {
     relationship: many_to_one
