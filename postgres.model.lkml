@@ -25,6 +25,16 @@ explore: provider_files {
     type: left_outer
     sql_on: ${provider_files.enterprise_id} = ${enterprises.id}  ;;
   }
+  join: deas {
+    relationship: one_to_many
+    type: left_outer
+    sql_on: ${providers.id} = ${deas.provider_id};;
+  }
+  join: state_medical_licenses {
+    relationship: one_to_many
+    type: left_outer
+    sql_on: ${providers.id} = ${state_medical_licenses.provider_id} ;;
+  }
 }
 
 # explore: provider_files {
